@@ -16,8 +16,8 @@ const canvasRef = ref(null)
 const containerRef = ref(null)
 
 const flowerConfig = {
-  position: { x: 0.5, y: -3.8, z: 3 },
-  scale: 6.2,
+  position: { x: 1, y: -2.3, z: 3 },
+  scale: 4.2,
   swaySpeed: 0.5,       
   swayIntensity: 0.04,  
 }
@@ -30,13 +30,7 @@ let observer
 const uniforms = {
   u_time: { value: 0.0 },
   u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-  u_mouse: { value: new THREE.Vector2(0.5, 0.5) },
-}
-
-const handleMouseMove = (e) => {
-  if (!isVisible) return
-  uniforms.u_mouse.value.x = e.clientX / window.innerWidth
-  uniforms.u_mouse.value.y = 1.0 - e.clientY / window.innerHeight
+  u_mouse: { value: new THREE.Vector2(0.5, 0.5) }, 
 }
 
 const handleResize = () => {
@@ -143,12 +137,10 @@ onMounted(() => {
   }, { threshold: 0.05 })
   if (containerRef.value) observer.observe(containerRef.value)
 
-  window.addEventListener('mousemove', handleMouseMove, { passive: true })
   window.addEventListener('resize', handleResize)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
   window.removeEventListener('resize', handleResize)
   cancelAnimationFrame(animationFrameId)
   if (observer) observer.disconnect()

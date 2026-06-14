@@ -88,7 +88,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -128,12 +127,97 @@
       </div>
     </section>
 
+    <section class="relative w-full bg-neutral-950 text-white z-20 border-t border-neutral-900/50">
+      <div class="max-w-4xl mx-auto py-28 px-8">
+        <div ref="projectsHeader" class="mb-16 invisible">
+          <h2 class="font-sans font-bold text-5xl mb-4 tracking-tight">Projects</h2>
+          <p class="font-sans font-light text-lg text-neutral-400">
+            Production pipelines, backend systems, and automated data architectures.
+          </p>
+        </div>
+
+        <div ref="projectsList" class="space-y-12">
+          <div 
+            v-for="(project, index) in projectsData" 
+            :key="project.title"
+            class="group border border-neutral-900 bg-neutral-950/40 hover:bg-neutral-950 hover:border-neutral-800 transition-all duration-300 rounded-2xl p-8 invisible project-row"
+          >
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono text-neutral-600">0{{ index + 1 }}</span>
+                <h3 class="font-sans font-bold text-2xl text-neutral-100 group-hover:text-white transition-colors">
+                  {{ project.title }}
+                </h3>
+              </div>
+              
+              <a 
+                v-if="project.url" 
+                :href="project.url" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-xs font-sans font-light tracking-wider uppercase text-neutral-400 hover:text-white transition-colors duration-200"
+              >
+                Launch App
+                <svg class="w-3 h-3 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+              <span v-else class="text-xs font-mono tracking-wider text-neutral-600 uppercase">
+                Internal System
+              </span>
+            </div>
+
+            <p class="font-sans font-light text-sm text-neutral-400 leading-relaxed mb-6">
+              {{ project.description }}
+            </p>
+
+            <div class="flex flex-wrap gap-2">
+              <span 
+                v-for="tech in project.tags" 
+                :key="tech"
+                class="text-xs font-mono bg-neutral-900 border border-neutral-800/60 text-neutral-400 rounded-md py-1 px-2.5"
+              >
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="relative w-full h-[40vh] bg-black overflow-hidden border-t border-neutral-900/60 z-20">
+      <TopoFooterCanvas />
+      
+      <div class="absolute inset-0 flex flex-col justify-between p-8 md:p-12 pointer-events-none z-30">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full max-w-5xl mx-auto pointer-events-auto">
+          <div>
+            <p class="font-sans font-medium text-sm text-neutral-300">Dandre Mitchel Collera</p>
+            <p class="font-sans font-light text-xs text-neutral-500 mt-1">Fullstack Engineer & Backend Expert</p>
+          </div>
+          <div class="flex items-center gap-6 text-xs font-mono tracking-wider text-neutral-400 uppercase">
+            <a href="https://github.com/dandrecollera" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub</a>
+            <a href="https://www.linkedin.com/in/dandrecollera/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="w-full max-w-5xl mx-auto flex justify-between items-center border-t border-neutral-900/80 pt-6">
+          <p class="text-[10px] font-mono text-neutral-600 uppercase tracking-widest">
+            © 2026 All Rights Reserved
+          </p>
+          <p class="text-[10px] font-mono text-neutral-600 uppercase tracking-widest">
+            Precision & Execution
+          </p>
+        </div>
+      </div>
+    </footer>
+
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import TopoCanvas from './components/TopoCanvas.vue'
+import TopoFooterCanvas from './components/TopoFooterCanvas.vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -145,6 +229,8 @@ const philosophyCard = ref(null)
 const strategyCards = ref(null)
 const deepDiveRows = ref(null)
 const skillsHeader = ref(null)
+const projectsHeader = ref(null)
+const projectsList = ref(null)
 
 onMounted(() => {
   gsap.fromTo(heroText.value, 
@@ -159,7 +245,6 @@ onMounted(() => {
       scrollTrigger: { trigger: aboutHeader.value, start: 'top 85%' }
     }
   )
-  gsap.fromTo('.header-line', { width: 0 }, { width: 48, duration: 1.2, ease: 'power3.inOut', scrollTrigger: { trigger: aboutHeader.value, start: 'top 85%' } })
 
   gsap.fromTo(philosophyCard.value,
     { autoAlpha: 0, y: 50 },
@@ -207,6 +292,22 @@ onMounted(() => {
       }
     )
   })
+
+  gsap.fromTo(projectsHeader.value,
+    { autoAlpha: 0, y: 30 },
+    {
+      autoAlpha: 1, y: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: projectsHeader.value, start: 'top 85%' }
+    }
+  )
+
+  gsap.fromTo('.project-row',
+    { autoAlpha: 0, y: 40 },
+    {
+      autoAlpha: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.2,
+      scrollTrigger: { trigger: projectsList.value, start: 'top 80%' }
+    }
+  )
 })
 
 const skillsData = {
@@ -255,11 +356,63 @@ const skillsData = {
     { name: 'Linux / PM2', iconClass: 'devicon-linux-plain' }
   ],
   'UI, Styling & Layout': [
+    { name: 'Vite', iconClass: 'devicon-vitejs-plain' },
     { name: 'Tailwind CSS', iconClass: 'devicon-tailwindcss-original' },
     { name: 'DaisyUI', iconClass: 'devicon-css3-plain' },
     { name: 'Bootstrap', iconClass: 'devicon-bootstrap-plain' }
   ]
 }
+
+const projectsData = [
+  {
+    title: 'TIFTCI Backend Service',
+    description: 'Engineered a dedicated backend optimization service using Laravel to overhaul the platform’s data layers. Streamlined core database management systems, refactored raw query logic to eliminate processing bottlenecks, and implemented secure architectural practices to deliver a high-speed, secure, and low-latency infrastructure.',
+    url: 'https://tiftci.com/',
+    tags: ['Laravel', 'PHP', 'MySQL', 'Database Optimization', 'Security']
+  },
+  {
+    title: 'Inrico Philippines Website',
+    description: 'Developed a high-performance product catalog platform for Inrico two-way radio hardware within the local market. Engineered a custom WordPress plugin from scratch to securely handle client inquiries and intake forms, while implementing aggressive optimization mechanics and targeted local SEO strategies to anchor the site at the top of Google search rankings.',
+    url: 'https://inricoph.com/',
+    tags: ['WordPress', 'Custom Plugin', 'MySQL', 'SEO', 'Performance Optimization']
+  },
+  {
+    title: 'OrbitalSEO Website Tracker',
+    description: 'Architected a centralized monitoring platform using Next.js to track and audit large fleets of client WordPress installations. Built an automated headless runtime pipeline with Puppeteer to capture visual snapshots, instantly tracking visual regressions, downtime events, and precise page modification timestamps for real-time system observability.',
+    url: '',
+    tags: ['Next.js', 'Puppeteer', 'Chromium', 'Automation', 'Web Scraping']
+  },
+  {
+    title: 'OrbitalSEO Data Scraping API',
+    description: 'Built a resilient, headless web scraping pipeline using Puppeteer and Chromium to continuously extract and compile high-volume marketplace data into a structured client database. Integrated a secure API layer and automation triggers to seamlessly pipe the cached datasets into separate cross-project dependencies.',
+    url: '',
+    tags: ['Puppeteer', 'Chromium', 'Node.js', 'API Automation']
+  },
+  {
+    title: 'Domain Name Verifier & Audit',
+    description: 'Engineered a network utility platform using Python and Flask to analyze domain state and availability. Integrated optimized Perl scripts to handle underlying system sockets, allowing users to query, fetch, and audit unstructured raw WHOIS registry datasets with minimal execution latency.',
+    url: '',
+    tags: ['Python', 'Flask', 'Perl', 'WHOIS API', 'Network Security']
+  },
+  {
+    title: 'Access Healthcare Staffing Job Board',
+    description: 'Developed a dynamic job board platform built on Laravel 8 that integrates with the LaborEdge API to aggregate, sync, and display live healthcare employment opportunities. Architected transactional email dispatch pipelines using Zoho Mail to instantly route job details and match candidate profiles directly to recruiting staff.',
+    url: '',
+    tags: ['Laravel 8', 'PHP', 'LaborEdge API', 'Zoho Mail', 'Automation']
+  },
+  {
+    title: 'Access Healthcare Staffing Central API & ATS',
+    description: 'Engineered a mission-critical Central API and Applicant Tracking System (ATS) to manage high-volume staffing operations. Built multi-directional automation syncs across RingCentral, Ambition, and Job Robotix platforms, while executing extensive backend refactoring and database optimizations to significantly reduce server resource consumption.',
+    url: '',
+    tags: ['Laravel 12', 'PHP', 'Redis', 'API Automation', 'Performance Optimization']
+  },
+  {
+    title: 'Access Healthcare Staffing AI API',
+    description: 'Engineered a localized AI processing microservice leveraging LangChain, Ollama, and DeepSeek models. Developed specialized intelligent data pipelines to automate resume parsing, execution of automated document verification, and real-time validation of workforce timesheets with high semantic accuracy.',
+    url: '',
+    tags: ['Python', 'LangChain', 'Ollama', 'DeepSeek', 'AI Automation']
+  }
+]
 </script>
 
 <style>
