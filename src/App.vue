@@ -397,13 +397,13 @@ const projectsData = [
   {
     title: 'Access Healthcare Staffing Job Board',
     description: 'Developed a dynamic job board platform built on Laravel 8 that integrates with the LaborEdge API to aggregate, sync, and display live healthcare employment opportunities. Architected transactional email dispatch pipelines using Zoho Mail to instantly route job details and match candidate profiles directly to recruiting staff.',
-    url: '',
+    url: 'https://accesshealthcarestaffing.com/jobs',
     tags: ['Laravel 8', 'PHP', 'LaborEdge API', 'Zoho Mail', 'Automation']
   },
   {
     title: 'Access Healthcare Staffing Central API & ATS',
     description: 'Engineered a mission-critical Central API and Applicant Tracking System (ATS) to manage high-volume staffing operations. Built multi-directional automation syncs across RingCentral, Ambition, and Job Robotix platforms, while executing extensive backend refactoring and database optimizations to significantly reduce server resource consumption.',
-    url: '',
+    url: 'https://oneaccessats.com/',
     tags: ['Laravel 12', 'PHP', 'Redis', 'API Automation', 'Performance Optimization']
   },
   {
