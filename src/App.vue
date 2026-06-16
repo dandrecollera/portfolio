@@ -395,10 +395,16 @@ const projectsData = [
     tags: ['Python', 'Flask', 'Perl', 'WHOIS API', 'Network Security']
   },
   {
+    title: 'Set Up My Business',
+    description: 'Collaborated in a multi-developer environment to scale a comprehensive business initialization and management platform for the Australian market. Co-architected core backend systems using Laravel to drive features including automated invoice generation, live domain availability verification, and financial trackers. Integrated a LaborEdge API pipeline to sync live healthcare job boards, and leveraged Apache Kafka alongside Zoho Mail to handle distributed messaging and high-throughput transactional event routing.',
+    url: 'https://set-up-my-business.com.au/',
+    tags: ['Laravel', 'PHP', 'Apache Kafka', 'Zoho Mail', 'Enterprise Systems']
+  },
+  {
     title: 'Access Healthcare Staffing Job Board',
     description: 'Developed a dynamic job board platform built on Laravel 8 that integrates with the LaborEdge API to aggregate, sync, and display live healthcare employment opportunities. Architected transactional email dispatch pipelines using Zoho Mail to instantly route job details and match candidate profiles directly to recruiting staff.',
     url: 'https://accesshealthcarestaffing.com/jobs',
-    tags: ['Laravel 8', 'PHP', 'LaborEdge API', 'Zoho Mail', 'Automation']
+    tags: ['Laravel 8', 'PHP', 'Zoho Mail', 'Automation', "API Connection"]
   },
   {
     title: 'Access Healthcare Staffing Central API & ATS',
